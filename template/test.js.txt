@@ -1,4 +1,4 @@
-var addon = require("./build/Debug/{{ADDON_NAME}}");
+var addon = require("./" + process.arch + "/{{ADDONNAME}}");
 
 const readline = require('readline');
 

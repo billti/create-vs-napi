@@ -21,11 +21,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{{PROJECTGUID}}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>{{ADDON_NAME}}</RootNamespace>
+    <RootNamespace>{{ADDONNAME}}</RootNamespace>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
     <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
-    <!--<WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>-->
-    <!--<IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>-->
     <NodeLibDir Condition="'$(Platform)'=='x64'">x64</NodeLibDir>
     <NodeLibDir Condition="'$(Platform)'=='Win32'">ia32</NodeLibDir>
     <TargetMachine Condition="'$(Platform)'=='x64'">MachineX64</TargetMachine>
@@ -50,15 +48,14 @@
     <IntDir>$(Configuration)\obj\$(ProjectName)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)'=='Debug">true</LinkIncremental>
-    <!-- TODO Make platform specific -->
-    <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
-    <TargetExt>.node</TargetExt>
+    <OutDir>$(ProjectDir)$(NodeLibDir)\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
-    <TargetPath>$(OutDir)\$(ProjectName).node</TargetPath>
+    <TargetExt>.node</TargetExt>
+    <TargetPath>$(OutDir)$(TargetName)$(TargetExt)</TargetPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
-      <AdditionalIncludeDirectories>{{OUT_DIR}}\include\node;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include\node;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/bigobj /MP %(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -78,7 +75,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;"{{OUT_DIR}}\lib\node\$(NodeLibDir)\node.lib"</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;"$(ProjectDir)\lib\node\$(NodeLibDir)\node.lib"</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -86,20 +83,19 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <GenerateMapFile>true</GenerateMapFile>
       <MapExports>true</MapExports>
-      <OutputFile>$(OutDir)$(ProjectName).node</OutputFile>
+      <OutputFile>$(TargetPath)</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetExt>.node</TargetExt>
       <TargetMachine>$(TargetMachine)</TargetMachine>
     </Link>
     <ResourceCompile>
-      <!--<AdditionalIncludeDirectories>C:\Users\billti\.node-gyp\10.0.0\include\node;C:\Users\billti\.node-gyp\10.0.0\src;C:\Users\billti\.node-gyp\10.0.0\deps\uv\include;C:\Users\billti\.node-gyp\10.0.0\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>-->
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME={{ADDONNAME}};USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;DEBUG;_DEBUG;V8_ENABLE_CHECKS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
-      <AdditionalIncludeDirectories>{{OUT_DIR}}\include\node;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\include\node;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <CompileAsWinRT>false</CompileAsWinRT>
@@ -126,7 +122,7 @@
       <AdditionalOptions>/LTCG %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <Link>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;"{{OUT_DIR}}\lib\node\$(NodeLibDir)\node.lib"</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;DelayImp.lib;"$(ProjectDir)\lib\node\$(NodeLibDir)\node.lib"</AdditionalDependencies>
       <AdditionalOptions>/ignore:4199 /LTCG:INCREMENTAL %(AdditionalOptions)</AdditionalOptions>
       <AllowIsolation>true</AllowIsolation>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -136,14 +132,13 @@
       <GenerateMapFile>true</GenerateMapFile>
       <MapExports>true</MapExports>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)$(ProjectName).node</OutputFile>
+      <OutputFile>$(TargetPath)</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <TargetExt>.node</TargetExt>
       <TargetMachine>$(TargetMachine)</TargetMachine>
     </Link>
     <ResourceCompile>
-      <!--<AdditionalIncludeDirectories>C:\Users\billti\.node-gyp\10.0.0\include\node;C:\Users\billti\.node-gyp\10.0.0\src;C:\Users\billti\.node-gyp\10.0.0\deps\uv\include;C:\Users\billti\.node-gyp\10.0.0\deps\v8\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>-->
       <PreprocessorDefinitions>NODE_GYP_MODULE_NAME={{ADDONNAME}};USING_UV_SHARED=1;USING_V8_SHARED=1;V8_DEPRECATION_WARNINGS=1;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;_HAS_EXCEPTIONS=0;BUILDING_NODE_EXTENSION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
@@ -152,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc" />
-    <!--<ClCompile Include="%APPDATA%\npm\node_modules\node-gyp\src\win_delay_load_hook.cc" />-->
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />

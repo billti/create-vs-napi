@@ -6,8 +6,7 @@ import stream = require("stream");
 import tar = require("tar");
 import mkdirp = require("mkdirp");
 import uuid = require("uuid/v4");
-// uuid() => string of the format: "4ec6f100-dc76-4e60-b43b-1a55eb9d8262"
-// to get the ProjectGuid: `{${uuid.toUpperCase()}}`
+// uuid() -> string of the format: "4ec6f100-dc76-4e60-b43b-1a55eb9d8262"
 
 import fetch from "node-fetch";
 
@@ -93,9 +92,9 @@ export class Generator {
 
             const filetext = await readfile(templatePath, 'utf8');
             const newtext = filetext
-                .replace(/\{\{ADDON_NAME\}\}/g, this.addinName)
+                .replace(/\{\{ADDONNAME\}\}/g, this.addinName)
                 .replace(/\{\{PROJECTGUID\}\}/g, `{${uuid().toUpperCase()}}`)
-                .replace(/\{\{OUT_DIR\}\}/g, this.outDir);
+                .replace(/\{\{OUTDIR\}\}/g, this.outDir);
             await writefile(fullpath, newtext);
             console.log(`Wrote file: ${fullpath}`);
         }
