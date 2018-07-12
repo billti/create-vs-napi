@@ -18,7 +18,10 @@ export class Generator {
     // TODO: Update definitelyTyped with the "process.release" declaration
     releases: { [url: string]: string } = (process as any).release;
 
+    // Along the lines of: https://nodejs.org/download/release/v10.1.0/node-v10.1.0-headers.tar.gz
     headersUrl = this.releases.headersUrl;
+
+    // Along the lines of: https://nodejs.org/download/release/v10.1.0/win-{x64,x86}/node.lib
     libUrl = this.releases.libUrl;
     arch = process.arch; // => "x64" || "ia32" on Windows
     libDir: string;

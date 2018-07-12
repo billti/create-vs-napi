@@ -1,4 +1,6 @@
-﻿import path = require("path");
+﻿#!/usr/bin/env node
+
+import path = require("path");
 import fs = require("fs");
 import program = require("commander");
 
