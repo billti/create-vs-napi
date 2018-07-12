@@ -47,7 +47,7 @@
     <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <IntDir>$(Configuration)\obj\$(ProjectName)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)'=='Release'">false</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)'=='Debug">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)'=='Debug'">true</LinkIncremental>
     <OutDir>$(ProjectDir)$(NodeLibDir)\</OutDir>
     <TargetName>$(ProjectName)</TargetName>
     <TargetExt>.node</TargetExt>
