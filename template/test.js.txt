@@ -1,0 +1,14 @@
+var addon = require("./build/Debug/{{ADDON_NAME}}");
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Press enter to exit\n\n', (answer) => {
+    rl.close();
+});
+
+console.log(addon.hello());

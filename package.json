@@ -1,0 +1,28 @@
+{
+  "name": "create-vs-napi",
+  "version": "0.0.1",
+  "description": "Visual Studio 2017 Node.js addon generator",
+  "engines": {
+    "node": ">= 10.0.0"
+  },
+  "engineStrict": true,
+  "main": "lib/main.js",
+  "bin": "lib/bin.js",
+  "author": {
+    "name": "Bill Ticehurst <billti@hotmail.com>"
+  },
+  "devDependencies": {
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^10.1.2",
+    "@types/node-fetch": "^1.6.9",
+    "@types/tar": "^4.0.0",
+    "@types/uuid": "^3.4.3"
+  },
+  "dependencies": {
+    "commander": "^2.15.1",
+    "mkdirp": "^0.5.1",
+    "node-fetch": "^2.1.2",
+    "tar": "^4.4.4",
+    "uuid": "^3.2.1"
+  }
+}
