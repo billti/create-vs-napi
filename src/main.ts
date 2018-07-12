@@ -91,10 +91,20 @@ export class Generator {
             let fullpath = path.join(this.outDir, filename);
 
             const filetext = await readfile(templatePath, 'utf8');
-            const newtext = filetext
+            let newtext = filetext
                 .replace(/\{\{ADDONNAME\}\}/g, this.addinName)
                 .replace(/\{\{PROJECTGUID\}\}/g, `{${uuid().toUpperCase()}}`)
                 .replace(/\{\{OUTDIR\}\}/g, this.outDir);
+            if (filename.match(/\.vcxproj$/)) {
+                // Comment out the bitness not being used
+                if (process.arch == "x64") {
+                    newtext = newtext.replace("<!-- Start x86 -->", "<!-- Start x86");
+                    newtext = newtext.replace("<!-- End x86 -->", "End x86 -->");
+                } else {
+                    newtext = newtext.replace("<!-- Start x64 -->", "<!-- Start x64");
+                    newtext = newtext.replace("<!-- End x64 -->", "End x64 -->");
+                }
+            }
             await writefile(fullpath, newtext);
             console.log(`Wrote file: ${fullpath}`);
         }
