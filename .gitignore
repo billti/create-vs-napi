@@ -4,3 +4,4 @@ obj/
 ext/
 .vs/
 npm-debug.log
+*.user

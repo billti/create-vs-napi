@@ -13,6 +13,8 @@ import fetch from "node-fetch";
 
 const pipeline = util.promisify(stream.pipeline);
 const mkdir = util.promisify(mkdirp);
+const readfile = util.promisify(fs.readFile);
+const writefile = util.promisify(fs.writeFile);
 
 export class Generator {
     // TODO: Update definitelyTyped with the "process.release" declaration
@@ -78,15 +80,24 @@ export class Generator {
                 }
             );
 
-        return Promise.all([headerPromise, libPromise]);
+        await Promise.all([headerPromise, libPromise]);
+        await this.writeFiles();
     }
 
     async writeFiles() {
         const toCopy = ["ADDONNAME.vcxproj.xml", "main.cc.txt", "test.js.txt"];
-        for (let filename in toCopy) {
-            filename = filename.replace("ADDONNAME", this.addinName).substring(0, -4);
+        for (let filename of toCopy) {
+            const templatePath = path.join(__dirname, "../template", filename);
+            filename = filename.replace("ADDONNAME", this.addinName).slice(0, -4);
             let fullpath = path.join(this.outDir, filename);
-            // TODO: Read file, replace contents, write output.
+
+            const filetext = await readfile(templatePath, 'utf8');
+            const newtext = filetext
+                .replace(/\{\{ADDON_NAME\}\}/g, this.addinName)
+                .replace(/\{\{PROJECTGUID\}\}/g, `{${uuid().toUpperCase()}}`)
+                .replace(/\{\{OUT_DIR\}\}/g, this.outDir);
+            await writefile(fullpath, newtext);
+            console.log(`Wrote file: ${fullpath}`);
         }
     }
 };
