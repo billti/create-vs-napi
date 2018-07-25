@@ -1,7 +1,14 @@
 {
   "name": "create-vs-napi",
   "version": "0.0.1",
+  "license": "Apache-2.0",
   "description": "Visual Studio 2017 Node.js addon generator",
+  "keywords": [
+    "Visual Studio 2017",
+    "Node.js",
+    "C++",
+    "N-API"
+  ],
   "engines": {
     "node": ">= 10.0.0"
   },
@@ -10,6 +17,13 @@
   "bin": "lib/bin.js",
   "author": {
     "name": "Bill Ticehurst <billti@hotmail.com>"
+  },
+  "bugs": {
+    "url": "https://github.com/billti/create-vs-napi/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/billti/create-vs-napi.git"
   },
   "devDependencies": {
     "@types/mkdirp": "^0.5.2",
