@@ -84,7 +84,7 @@ export class Generator {
     }
 
     async writeFiles() {
-        const toCopy = ["ADDONNAME.vcxproj.xml", "main.cc.txt", "test.js.txt"];
+        const toCopy = ["ADDONNAME.vcxproj.xml", "main.cc.txt", "win_delay_load_hook.cc.txt", "test.js.txt"];
         for (let filename of toCopy) {
             const templatePath = path.join(__dirname, "../template", filename);
             filename = filename.replace("ADDONNAME", this.addinName).slice(0, -4);

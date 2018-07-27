@@ -1,6 +1,6 @@
 {
   "name": "create-vs-napi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "Apache-2.0",
   "description": "Visual Studio 2017 Node.js addon generator",
   "keywords": [

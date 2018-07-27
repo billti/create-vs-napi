@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="template\main.cc.txt" />
+    <Content Include="template\win_delay_load_hook.cc.txt" />
     <Content Include="template\ADDONNAME.vcxproj.xml">
       <SubType>Code</SubType>
     </Content>
